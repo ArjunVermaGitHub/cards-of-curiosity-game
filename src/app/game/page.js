@@ -54,6 +54,27 @@ export default function GamePage() {
 
   const normalizeCategory = useCallback((value) => idToName[value] || value, []);
 
+  const loadQuestions = useCallback(async (filterCategories = null) => {
+    try {
+      setLoading(true);
+      const data = await parseQuestionsFromExcel();
+      setCategories(data.categories);
+      setQuestionsByCategory(data.questionsByCategory);
+      setTotalQuestionsByCategory(data.totalQuestionsByCategory || {});
+      setPurchasedCategories(data.purchasedCategories || []);
+      setError(null);
+      console.log('Loaded purchased categories on initial load:', data.purchasedCategories);
+      
+      return data;
+    } catch (err) {
+      setError('Failed to load questions. Please make sure the Excel file is in the public folder.');
+      console.error('Error loading questions:', err);
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
     if (isLoaded && isSignedIn) {
       // Check URL parameters for game mode
@@ -90,28 +111,7 @@ export default function GamePage() {
         loadQuestions();
       }
     }
-  }, [isLoaded, isSignedIn, normalizeCategory]);
-
-  const loadQuestions = async (filterCategories = null) => {
-    try {
-      setLoading(true);
-      const data = await parseQuestionsFromExcel();
-      setCategories(data.categories);
-      setQuestionsByCategory(data.questionsByCategory);
-      setTotalQuestionsByCategory(data.totalQuestionsByCategory || {});
-      setPurchasedCategories(data.purchasedCategories || []);
-      setError(null);
-      console.log('Loaded purchased categories on initial load:', data.purchasedCategories);
-      
-      return data;
-    } catch (err) {
-      setError('Failed to load questions. Please make sure the Excel file is in the public folder.');
-      console.error('Error loading questions:', err);
-      return null;
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [isLoaded, isSignedIn, normalizeCategory, loadQuestions]);
 
   const handlePurchase = async (category) => {
     try {

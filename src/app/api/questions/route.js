@@ -57,6 +57,18 @@ export async function GET(request) {
 
     // Read the Excel file from the public folder
     const filePath = path.join(process.cwd(), 'public', 'CoC Card Questions for Arjun.xlsx');
+    
+    // Check if file exists
+    try {
+      await fs.access(filePath);
+    } catch (accessError) {
+      console.error('Excel file not found at:', filePath);
+      return Response.json(
+        { error: 'Questions file not found. Please ensure the Excel file is in the public folder.' },
+        { status: 404 }
+      );
+    }
+    
     const fileBuffer = await fs.readFile(filePath);
     
     // Parse the Excel file

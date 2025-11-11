@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import DarkModeButton from './DarkModeButton';
 import styles from './Navigation.module.scss';
 import { SignInButton, SignOutButton, useUser } from '@clerk/nextjs';
@@ -10,18 +11,18 @@ export function Navigation() {
   return (
     <nav className={styles.navigation}>
       <div className={styles.logo}>
-        <a href="/">Cards of Curiosity</a>
+        <Link href="/">Cards of Curiosity</Link>
       </div>
 
       <div className={styles.navLinks}>
-        <a href="/" className={styles.navLink}>
+        <Link href="/" className={styles.navLink}>
           <span className={styles.navText}>Home</span>
           <span className={styles.navIcon}>🏠</span>
-        </a>
-        <a href="/game" className={styles.navLink}>
+        </Link>
+        <Link href="/game" className={styles.navLink}>
           <span className={styles.navText}>Play Game</span>
           <span className={styles.navIcon}>🎮</span>
-        </a>
+        </Link>
       </div>
 
       <div className={styles.authButtons}>
@@ -34,10 +35,10 @@ export function Navigation() {
               <span className={styles.userIcon}>👤</span>
             </span>
             <SignOutButton>
-              <button className={styles.textBtn}>
+        <button className={styles.textBtn}>
                 <span className={styles.btnText}>Sign Out</span>
                 <span className={styles.btnIcon}>🚪</span>
-              </button>
+        </button>
             </SignOutButton>
           </div>
         )}

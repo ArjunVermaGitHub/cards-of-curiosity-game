@@ -1,0 +1,201 @@
+.chooseSetPage {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/watercolor-bg.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.content {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  height: 100vh;
+}
+
+.backButton {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #00FF88;
+  cursor: pointer;
+  z-index: 20;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(0, 255, 136, 0.1);
+    transform: scale(1.1);
+  }
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #00FF88;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-family: var(--font-nunito), sans-serif;
+  text-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+}
+
+.menuContainer {
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 20px;
+  padding: 2rem;
+  width: 80%;
+  max-width: 500px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.setsContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.setsRow {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.setsSlider {
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+}
+
+.pageContainer {
+  display: flex;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.setCard {
+  padding: 1.5rem;
+  background: transparent;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #00FF88;
+  font-family: var(--font-nunito), sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 0;
+  
+  &:hover {
+    background: rgba(0, 255, 136, 0.1);
+    transform: scale(1.02);
+  }
+  
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.prevButton,
+.nextButton {
+  background: none;
+  border: none;
+  color: #00FF88;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  
+  &:hover {
+    color: #00e677;
+    transform: scale(1.1);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.cardIcon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconImage {
+  width: 2rem;
+  height: 2rem;
+  object-fit: contain;
+}
+
+.cardTitle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #00FF88;
+  margin: 0;
+  font-family: var(--font-nunito), sans-serif;
+  line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+  .content { padding: 1rem; }
+  .backButton { top: 1rem; left: 1rem; font-size: 1.5rem; }
+  .title { font-size: 2.5rem; margin-bottom: 1.5rem; }
+  .menuContainer { width: 90%; padding: 1.5rem; }
+  .setsContainer { gap: 0.8rem; }
+  .pageContainer { gap: 0.8rem; }
+  .setCard { padding: 1.2rem; font-size: 1rem; }
+  .cardIcon { font-size: 1.8rem; }
+  .iconImage { width: 1.8rem; height: 1.8rem; }
+  .cardTitle { font-size: 0.8rem; }
+  .prevButton, .nextButton { font-size: 1.8rem; }
+}
+
+@media (max-width: 480px) {
+  .title { font-size: 2rem; }
+  .menuContainer { width: 95%; padding: 1rem; }
+  .setsContainer { gap: 0.6rem; }
+  .pageContainer { gap: 0.6rem; }
+  .setCard { padding: 1rem; font-size: 0.9rem; }
+  .cardIcon { font-size: 1.5rem; }
+  .iconImage { width: 1.5rem; height: 1.5rem; }
+  .cardTitle { font-size: 0.75rem; }
+  .prevButton, .nextButton { font-size: 1.5rem; }
+}
+
+
+

@@ -14,23 +14,23 @@ export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <Providers>
-        <html lang="en">
+      <html lang="en">
           <head>
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
-                  (function() {
-                    const darkMode = localStorage.getItem('darkMode') === 'true';
-                    if (darkMode) {
-                      document.documentElement.classList.add('dark-mode');
-                    } else {
-                      document.documentElement.classList.remove('dark-mode');
-                    }
-                  })();`,
-              }}
-            />
+      <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                const darkMode = localStorage.getItem('darkMode') === 'true';
+                if (darkMode) {
+                  document.documentElement.classList.add('dark-mode');
+                } else {
+                  document.documentElement.classList.remove('dark-mode');
+                }
+              })();`,
+          }}
+        />
           </head>
-          <body
+        <body
             className={`${nunito.variable} antialiased`}
             style={{ 
               height: '100vh', 
@@ -46,8 +46,8 @@ export default function RootLayout({ children }) {
                 {children}
               </main>
             </AppFlow>
-          </body>
-        </html>
+        </body>
+      </html>
       </Providers>
     </ClerkProvider>
   );

@@ -1,0 +1,267 @@
+.settingsContainer {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.settingsContent {
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 20px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border: 2px solid #00FF88;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.backButton {
+  background: rgba(0, 0, 0, 0.6);
+  color: #00FF88;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-right: 1rem;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.backButton:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
+}
+
+.settingsTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #00FF88;
+  text-align: center;
+  margin: 0;
+  flex: 1;
+  font-family: var(--font-nunito), sans-serif;
+  text-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+}
+
+.settingsSection {
+  margin-bottom: 2rem;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.sectionTitle {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #00FF88;
+  margin-bottom: 1rem;
+  font-family: var(--font-nunito), sans-serif;
+  border-bottom: 1px solid rgba(0, 255, 136, 0.3);
+  padding-bottom: 0.5rem;
+}
+
+.settingItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(0, 255, 136, 0.05);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(0, 255, 136, 0.1);
+  }
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.settingInfo {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0.25rem;
+}
+
+.settingLabel {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #00FF88;
+  font-family: var(--font-nunito), sans-serif;
+}
+
+.settingDescription {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: var(--font-nunito), sans-serif;
+}
+
+.toggleButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(0, 255, 136, 0.1);
+  border: 2px solid #00FF88;
+  border-radius: 8px;
+  color: #00FF88;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: var(--font-nunito), sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(0, 255, 136, 0.2);
+    transform: scale(1.05);
+  }
+  
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.toggleIcon {
+  font-size: 1.2rem;
+}
+
+.toggleText {
+  white-space: nowrap;
+}
+
+.signOutButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 59, 48, 0.1);
+  border: 2px solid #FF3B30;
+  border-radius: 8px;
+  color: #FF3B30;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: var(--font-nunito), sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(255, 59, 48, 0.2);
+    transform: scale(1.05);
+  }
+  
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.signOutIcon {
+  font-size: 1.2rem;
+}
+
+.signOutText {
+  white-space: nowrap;
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .settingsContainer {
+    padding: 1rem;
+  }
+  
+  .settingsContent {
+    padding: 1.5rem;
+  }
+  
+  .header {
+    margin-bottom: 1.5rem;
+  }
+  
+  .backButton {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+  
+  .settingsTitle {
+    font-size: 1.8rem;
+  }
+  
+  .sectionTitle {
+    font-size: 1.2rem;
+  }
+  
+  .settingItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .toggleButton,
+  .signOutButton {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .settingsContainer {
+    padding: 0.5rem;
+  }
+  
+  .settingsContent {
+    padding: 1rem;
+  }
+  
+  .header {
+    margin-bottom: 1rem;
+  }
+  
+  .backButton {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+    margin-right: 0.5rem;
+  }
+  
+  .settingsTitle {
+    font-size: 1.6rem;
+    margin: 0;
+  }
+  
+  .sectionTitle {
+    font-size: 1.1rem;
+  }
+  
+  .settingLabel {
+    font-size: 1rem;
+  }
+  
+  .settingDescription {
+    font-size: 0.85rem;
+  }
+  
+  .toggleButton,
+  .signOutButton {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+

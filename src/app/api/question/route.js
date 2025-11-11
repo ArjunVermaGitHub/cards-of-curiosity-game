@@ -2,6 +2,9 @@ import { auth, currentUser } from '@clerk/nextjs/server';
 import connectDB from '@/lib/mongodb';
 import Question from '@/models/Question';
 
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
 export async function POST(request) {
   try {
     const { question } = await request.json();
@@ -10,7 +13,17 @@ export async function POST(request) {
       return Response.json({ error: 'Question is required' }, { status: 400 });
     }
 
-    await connectDB();
+    // Ensure DB is reachable
+    try {
+      console.log('MONGODB_URI present:', Boolean(process.env.MONGODB_URI));
+      await connectDB();
+    } catch (e) {
+      console.error('MongoDB connection error:', e?.name, e?.message);
+      return Response.json({ 
+        error: 'Database connection failed', 
+        reason: process.env.NODE_ENV !== 'production' ? (e?.message || 'Unknown error') : undefined
+      }, { status: 500 });
+    }
 
     // Try to get user info (optional - allow anonymous submissions)
     let userId = null;
@@ -49,7 +62,7 @@ export async function POST(request) {
   } catch (error) {
     console.error('Error submitting question:', error);
     return Response.json(
-      { error: 'Failed to submit question', details: error.message },
+      { error: 'Failed to submit question', details: error?.message || 'Unknown error' },
       { status: 500 }
     );
   }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useUser } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 import { parseQuestionsFromExcel } from '@/utils/questionParser';
@@ -23,6 +23,20 @@ const categoryColors = {
   'Vision & Goals': '#BB8FCE'
 };
 
+// Map URL ids to display names used in the questions data
+const idToName = {
+  career: 'Career & Ambition',
+  character: 'Character & Quirks',
+  conflict: 'Conflict & Communication',
+  finances: 'Finances & Money Mindset',
+  lifestyle: 'Lifestyle & Habits',
+  love: 'Love & intimacy',
+  parenting: 'Parenting & Family',
+  values: 'Values & Beliefs',
+  chemistry: 'Chemistry',
+  vision: 'Vision & Goals'
+};
+
 export default function GamePage() {
   const { isSignedIn, isLoaded } = useUser();
   const router = useRouter();
@@ -38,21 +52,7 @@ export default function GamePage() {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Map URL ids to display names used in the questions data
-  const idToName = {
-    career: 'Career & Ambition',
-    character: 'Character & Quirks',
-    conflict: 'Conflict & Communication',
-    finances: 'Finances & Money Mindset',
-    lifestyle: 'Lifestyle & Habits',
-    love: 'Love & intimacy',
-    parenting: 'Parenting & Family',
-    values: 'Values & Beliefs',
-    chemistry: 'Chemistry',
-    vision: 'Vision & Goals'
-  };
-
-  const normalizeCategory = (value) => idToName[value] || value;
+  const normalizeCategory = useCallback((value) => idToName[value] || value, []);
 
   useEffect(() => {
     if (isLoaded && isSignedIn) {
@@ -90,7 +90,7 @@ export default function GamePage() {
         loadQuestions();
       }
     }
-  }, [isLoaded, isSignedIn]);
+  }, [isLoaded, isSignedIn, normalizeCategory]);
 
   const loadQuestions = async (filterCategories = null) => {
     try {
@@ -177,7 +177,7 @@ export default function GamePage() {
     }
   };
 
-  const getCurrentQuestion = () => {
+  const getCurrentQuestion = useCallback(() => {
     if (!activeCategory) {
       return null;
     }
@@ -212,7 +212,7 @@ export default function GamePage() {
     }
     
     return null;
-  };
+  }, [activeCategory, currentQuestionIndex, questionsByCategory, categories]);
 
   const getQuestionCounts = () => {
     const counts = {};
@@ -230,7 +230,7 @@ export default function GamePage() {
   };
 
   // All hooks must be called before any conditional returns
-  const currentQuestion = useMemo(() => getCurrentQuestion(), [activeCategory, currentQuestionIndex, questionsByCategory, categories]);
+  const currentQuestion = useMemo(() => getCurrentQuestion(), [getCurrentQuestion]);
   
   // Don't render question card if loading, or if question doesn't match active category
   // Also ensure questions array exists and has length for the active category

@@ -1,7 +1,7 @@
-import ChooseSet from '@/components/ChooseSet';
+import ChooseSetSlider from '@/components/ChooseSetSlider';
 
 export default function ChooseSetPage() {
-  return <ChooseSet />;
+  return <ChooseSetSlider />;
 }
 
 

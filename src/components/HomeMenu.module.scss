@@ -53,6 +53,18 @@
   border-right: 1px solid #00FF88;
   border-bottom: 1px solid #00FF88;
   position: relative;
+  text-decoration: none;
+  display: block;
+  
+  // Link-specific styles to prevent default browser styling
+  &:link,
+  &:visited,
+  &:hover,
+  &:active,
+  &:focus {
+    color: #00FF88;
+    text-decoration: none;
+  }
   
   &:nth-child(even) {
     border-right: none;
@@ -65,10 +77,12 @@
   &:hover {
     background: rgba(0, 255, 136, 0.1);
     transform: scale(1.02);
+    text-decoration: none;
   }
   
   &:active {
     transform: scale(0.98);
+    text-decoration: none;
   }
 }
 

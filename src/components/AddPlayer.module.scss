@@ -261,14 +261,23 @@
     flex-direction: column;
     margin-top: 2rem;
     padding-bottom: 2rem;
-    gap: 1rem;
+    gap: 1rem; /* spacing between buttons */
+    align-items: center; /* center narrower buttons */
   }
   
-  .skipButton,
+  /* Start button remains prominent */
   .startButton {
     width: 100%;
     padding: 1.2rem 2rem;
     font-size: 1.1rem;
+  }
+
+  /* Make Skip compact and not full width */
+  .skipButton {
+    width: auto;
+    padding: 0.9rem 1.4rem;
+    font-size: 1rem;
+    align-self: center;
   }
 }
 
@@ -304,9 +313,13 @@
     margin-top: 3rem;
   }
   
-  .skipButton,
   .startButton {
-    padding: 1.4rem 2rem;
-    font-size: 1.2rem;
+    padding: 1.2rem 2rem;
+    font-size: 1.1rem;
+  }
+
+  .skipButton {
+    padding: 0.9rem 1.2rem;
+    font-size: 0.95rem;
   }
 }

@@ -6,36 +6,53 @@ if (!MONGODB_URI) {
   throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
 }
 
-let cached = global.mongoose;
+// Reuse connection across hot reloads in dev
+let cached = global._mongooseConn;
 
 if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
+  cached = global._mongooseConn = { conn: null };
 }
 
-async function connectDB() {
-  if (cached.conn) {
+export default async function connectDB() {
+  // Already connected
+  if (cached.conn && mongoose.connection.readyState === 1) {
     return cached.conn;
   }
 
-  if (!cached.promise) {
-    const opts = {
-      bufferCommands: false,
-    };
-
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      return mongoose;
-    });
+  // Avoid multiple concurrent connects
+  if (mongoose.connection.readyState === 2) {
+    // connecting
+    return cached.conn ?? mongoose.connection;
   }
 
+  const isSrv = MONGODB_URI.startsWith('mongodb+srv://');
+
+  // Establish a new connection
   try {
-    cached.conn = await cached.promise;
+    const conn = await mongoose.connect(MONGODB_URI, {
+      // Reduce perceived hangs
+      serverSelectionTimeoutMS: 7000,
+      connectTimeoutMS: 7000,
+      socketTimeoutMS: 12000,
+      maxPoolSize: 5,
+      retryWrites: true,
+      // Prefer IPv4 to avoid some DNS/SRV resolver issues
+      family: 4,
+      appName: 'cards-of-curiosity'
+    });
+    cached.conn = conn;
+
+    if (isSrv) {
+      console.log('Connected to MongoDB via SRV.');
+    } else {
+      console.log('Connected to MongoDB via standard connection string.');
+    }
+
+    return conn;
   } catch (e) {
-    cached.promise = null;
+    const msg = e?.message || 'Unknown MongoDB connection error';
+    console.error('MongoDB connect error:', msg);
     throw e;
   }
-
-  return cached.conn;
 }
-
-export default connectDB;
 

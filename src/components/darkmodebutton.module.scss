@@ -8,20 +8,20 @@
   border-radius: 6px;
   transition: all 0.3s ease;
   white-space: nowrap;
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
   gap: 8px;
 
   &:hover {
     background-color: rgba(31, 120, 255, 0.1);
     color: #1a5fcc;
   }
-}
-
+  }
+  
 .darkModeText {
   display: inline;
-}
-
+  }
+  
 .darkModeIcon {
   display: none;
   font-size: 1.1rem;
@@ -40,5 +40,5 @@
   .darkModeButton {
     padding: 8px 12px;
   }
-}
+  }
   

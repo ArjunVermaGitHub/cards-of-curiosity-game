@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import ShareModal from './ShareModal';
 import styles from './HomeMenu.module.scss';
@@ -8,12 +8,19 @@ import styles from './HomeMenu.module.scss';
 export default function HomeMenu() {
   const router = useRouter();
   const [showShareModal, setShowShareModal] = useState(false);
+
+  useEffect(() => {
+    router.prefetch('/choose-set');
+    router.prefetch('/request-question');
+    router.prefetch('/feedback');
+    router.prefetch('/settings');
+  }, [router]);
   
   const menuOptions = [
     { id: 'choose-set', text: 'Choose a set.' },
     { id: 'feedback', text: 'Feedback' },
     { id: 'suggest', text: 'Suggest questions' },
-    { id: 'refer', text: 'Refer to friends <3' },
+    { id: 'settings', text: 'Settings' },
     { id: 'share', text: 'Share' },
     { id: 'buy-paper', text: 'Buy a paper set' }
   ];
@@ -26,20 +33,14 @@ export default function HomeMenu() {
       case 'suggest':
         router.push('/request-question');
         break;
+      case 'feedback':
+        router.push('/feedback');
+        break;
       case 'share':
         setShowShareModal(true);
         break;
-      case 'feedback':
-        // TODO: Implement feedback
-        alert('Feedback feature coming soon!');
-        break;
-      case 'refer':
-        // TODO: Implement refer to friends
-        alert('Refer to friends feature coming soon!');
-        break;
-      case 'buy-paper':
-        // TODO: Implement buy paper set
-        alert('Buy paper set feature coming soon!');
+      case 'settings':
+        router.push('/settings');
         break;
       default:
         break;
@@ -54,13 +55,25 @@ export default function HomeMenu() {
         
         <div className={styles.menuGrid}>
           {menuOptions.map((option) => (
-            <button
-              key={option.id}
-              className={styles.menuOption}
-              onClick={() => handleMenuClick(option.id)}
-            >
-              {option.text}
-            </button>
+            option.id === 'buy-paper' ? (
+              <a
+                key={option.id}
+                href="https://cardsofcuriosity.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.menuOption}
+              >
+                {option.text}
+              </a>
+            ) : (
+              <button
+                key={option.id}
+                className={styles.menuOption}
+                onClick={() => handleMenuClick(option.id)}
+              >
+                {option.text}
+              </button>
+            )
           ))}
         </div>
       </div>
